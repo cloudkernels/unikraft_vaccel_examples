@@ -1,0 +1,3 @@
+$(eval $(call addlib,apptest))
+
+APPTEST_SRCS-y += $(APPTEST_BASE)/classification.c

@@ -1,0 +1,5 @@
+### Invisible option for dependencies
+config APPTEST_DEPENDENCIES
+	bool
+	default y
+	select LIBNOLIBC if !HAVE_LIBC
