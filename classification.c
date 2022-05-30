@@ -4,49 +4,50 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 
 #include <vaccel.h>
 #include <vaccel_ops.h>
 
-int read_file(const char *filename, char **img, size_t *img_size)
+int read_file(int fd, char **img, size_t img_size)
 {
-	int fd;
+	//int fd;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0) {
-		//perror("open: ");
-		fprintf(stderr, "open %s returned %d", filename, fd);
-		return 1;
-	}
+	//fd = open(filename, O_RDONLY);
+	//if (fd < 0) {
+	//	//perror("open: ");
+	//	fprintf(stderr, "open %s returned %d", filename, fd);
+	//	return 1;
+	//}
 
-	struct stat info;
-	fstat(fd, &info);
-	fprintf(stdout, "Image size: %luB\n", info.st_size);
+	//struct stat info;
+	//fstat(fd, &info);
+	//fprintf(stdout, "Image size: %luB\n", info.st_size);
 
-	char *buf = malloc(info.st_size);
+	char *buf = malloc(img_size);
 	if (!buf) {
 		fprintf(stderr, "Could not allocate memory for image\n");
 		goto close_file;
 	}
 
-	long bytes = 0;
+	size_t bytes = 0;
 	do {
-		int ret = read(fd, buf, info.st_size);
+		ssize_t ret = read(fd, buf, img_size);
 		if (ret < 0) {
 			//perror("Error while reading image: ");
-			fprintf(stderr, "read returned %d", ret);
+			fprintf(stderr, "read returned %ld", ret);
 			goto free_buff;
 		}
 		bytes += ret;
-	} while (bytes < info.st_size);
+	} while (bytes < img_size);
 
-	if (bytes < info.st_size) {
+	if (bytes < img_size) {
 		fprintf(stderr, "Could not read image\n");
 		goto free_buff;
 	}
 
 	*img = buf;
-	*img_size = info.st_size;
+	//*img_size = info.st_size;
 	close(fd);
 
 	return 0;
@@ -65,6 +66,8 @@ int main(int argc, char *argv[])
        	size_t image_size;
 	char out_text[512], out_imagename[512];
 	struct vaccel_session sess;
+	int fd;
+	size_t len;
 
 	if (argc != 3) {
 		fprintf(stderr, "Usage: %s filename #iterations\n", argv[0]);
@@ -79,7 +82,18 @@ int main(int argc, char *argv[])
 
 	printf("Initialized session with id: %u\n", sess.session_id);
 
-	ret = read_file(argv[1], &image, &image_size);
+	for (int i = 0; i < argc; i++) {
+		if (strncmp(argv[i], "--fd=", 5) == 0) {
+			sscanf (argv[i],"--fd=%d", &fd);
+			fprintf(stderr, "fd = %d\n", fd);
+		}
+		if (strncmp(argv[i], "--len=", 6) == 0) {
+			sscanf (argv[i],"--len=%ld", &len);
+			fprintf(stderr, "len = %ld\n", len);
+		}
+	}
+	image_size = len;
+	ret = read_file(fd, &image, image_size);
 	if (ret)
 		goto close_session;
 

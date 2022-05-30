@@ -1,6 +1,6 @@
 UK_ROOT ?= $(PWD)/../../unikraft
 UK_LIBS ?= $(PWD)/../../libs
-LIBS :=
+LIBS := $(UK_LIBS)/lib-newlib:$(UK_LIBS)/lib-lwip:$(UK_LIBS)/lib-http-parser:$(UK_LIBS)/lib-watchdog
 
 all:
 	    @$(MAKE) -C $(UK_ROOT) A=$(PWD) L=$(LIBS)
