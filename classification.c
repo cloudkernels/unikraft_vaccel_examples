@@ -69,10 +69,10 @@ int main(int argc, char *argv[])
 	int fd;
 	size_t len;
 
-	if (argc != 3) {
-		fprintf(stderr, "Usage: %s filename #iterations\n", argv[0]);
-		return 0;
-	}
+	//if (argc != 3) {
+	//	fprintf(stderr, "Usage: %s filename #iterations\n", argv[0]);
+	//	return 0;
+	//}
 
 	ret = vaccel_sess_init(&sess, 0);
 	if (ret != VACCEL_OK) {
