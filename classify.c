@@ -1,3 +1,17 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -6,7 +20,12 @@
 #include <unistd.h>
 
 #include <vaccel.h>
-#include <vaccel_ops.h>
+
+#define perror(...)			\
+do {					\
+	fprintf( stderr,"Errno = %d: ", errno);	\
+	fprintf( stderr, __VA_ARGS__ );	\
+} while(0)
 
 int read_file(const char *filename, char **img, size_t *img_size)
 {
@@ -14,8 +33,7 @@ int read_file(const char *filename, char **img, size_t *img_size)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0) {
-		//perror("open: ");
-		fprintf(stderr, "open %s returned %d", filename, fd);
+		perror("open: ");
 		return 1;
 	}
 
@@ -33,8 +51,7 @@ int read_file(const char *filename, char **img, size_t *img_size)
 	do {
 		int ret = read(fd, buf, info.st_size);
 		if (ret < 0) {
-			//perror("Error while reading image: ");
-			fprintf(stderr, "read returned %d", ret);
+			perror("Error while reading image: ");
 			goto free_buff;
 		}
 		bytes += ret;
