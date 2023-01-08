@@ -2,4 +2,5 @@ $(eval $(call addlib,apptest))
 
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/noop.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/classify.c
-APPTEST_SRCS-y += $(APPTEST_BASE)/sgemm.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/sgemm.c
+APPTEST_SRCS-y += $(APPTEST_BASE)/sgemm_generic.c
