@@ -4,4 +4,6 @@ $(eval $(call addlib,apptest))
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/sgemm.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/sgemm_generic.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/classify.c
-APPTEST_SRCS-y += $(APPTEST_BASE)/classify_generic.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/classify_generic.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/detect.c
+APPTEST_SRCS-y += $(APPTEST_BASE)/detect_generic.c
