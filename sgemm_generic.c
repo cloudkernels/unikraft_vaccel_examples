@@ -28,7 +28,8 @@ void init(int m, int n, int k, float *A, float *B, float *C)
 
 	for (int i = 0; i < m; ++i)
 		for (int j = 0; j < n; ++j)
-			ELEM_2D(C, i, j, n) = ((float) i * j) / m;
+			ELEM_2D(C, i, j, n) = 0;
+			//ELEM_2D(C, i, j, n) = ((float) i * j) / m;
 }
 
 int main(int argc, char *argv[])
