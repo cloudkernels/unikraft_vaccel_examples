@@ -10,4 +10,6 @@ $(eval $(call addlib,apptest))
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/segment.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/segment_generic.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/pose.c
-APPTEST_SRCS-y += $(APPTEST_BASE)/pose_generic.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/pose_generic.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/depth.c
+APPTEST_SRCS-y += $(APPTEST_BASE)/depth_generic.c
