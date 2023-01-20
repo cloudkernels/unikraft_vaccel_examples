@@ -16,4 +16,5 @@ $(eval $(call addlib,apptest))
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/exec.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/exec_generic.c
 ##APPTEST_SRCS-y += $(APPTEST_BASE)/minmax.c
-APPTEST_SRCS-y += $(APPTEST_BASE)/minmax_generic.c
+##APPTEST_SRCS-y += $(APPTEST_BASE)/minmax_generic.c
+APPTEST_SRCS-y += $(APPTEST_BASE)/lenet.c
