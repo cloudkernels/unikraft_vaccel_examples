@@ -1,5 +1,121 @@
 ### Invisible option for dependencies
-config APPTEST_DEPENDENCIES
+config APPVACCELTEST_DEPENDENCIES
 	bool
 	default y
 	select LIBNOLIBC if !HAVE_LIBC
+	select LIBVACCELRT
+
+### Options for selcting example
+config APPVACCELTEST_NOOP
+	bool "Noop example"
+	default n
+	help
+		An example to test the passing of arguments
+
+config APPVACCELTEST_SGEMM
+	bool "SGEMM operation"
+	default n
+	help
+		An example of Single precision GEneral Matrix Multiply
+
+config APPVACCELTEST_SGEMM_GOP
+	bool "SGEMM operation, using genop"
+	default n
+	help
+		An example of Single precision GEneral Matrix Multiply, over genop
+
+config APPVACCELTEST_IMG_CLASS
+	bool "Image classification"
+	default n
+	help
+		An example of image classification
+
+config APPVACCELTEST_IMG_CLASS_GOP
+	bool "Image classification, using genop"
+	default n
+	help
+		An example of image classification, using vaccel genop
+
+config APPVACCELTEST_IMG_DTCT
+	bool "Image detection"
+	default n
+	help
+		An example of image detection
+
+config APPVACCELTEST_IMG_DTCT_GOP
+	bool "Image detection, using genop"
+	default n
+	help
+		An example of image detection, using vaccel genop
+
+config APPVACCELTEST_IMG_SEGM
+	bool "Image segmenetation"
+	default n
+	help
+		An example of image segmenetation
+
+config APPVACCELTEST_IMG_SEGM_GOP
+	bool "Image segmenetation, using genop"
+	default n
+	help
+		An example of image segmenetation, using vaccel genop
+
+config APPVACCELTEST_IMG_POSE
+	bool "Image pose"
+	default n
+	help
+		An example of image pose
+
+config APPVACCELTEST_IMG_POSE_GOP
+	bool "Image classification, using genop"
+	default n
+	help
+		An example of image pose, using vaccel genop
+
+config APPVACCELTEST_IMG_DPTH
+	bool "Image depth"
+	default n
+	help
+		An example of image depth
+
+config APPVACCELTEST_IMG_DPTH_GOP
+	bool "Image depth, using genop"
+	default n
+	help
+		An example of image depth, using vaccel genop
+
+config APPVACCELTEST_EXEC
+	bool "Exec operation"
+	default n
+	help
+		An example of exec operation
+
+config APPVACCELTEST_EXEC_GOP
+	bool "Exec operation, using genop"
+	default n
+	help
+		An example of exec operation, using vaccel genop
+
+config APPVACCELTEST_MINMAX
+	bool "Minmax operation"
+	default n
+	help
+		An example of minmax operation
+
+config APPVACCELTEST_MINMAX_GOP
+	bool "Exec operation, using genop"
+	default n
+	help
+		An example of minmax operation, using vaccel genop
+
+config APPVACCELTEST_LENET
+	bool "LeNet operation"
+	default n
+	help
+		An example of LeNet operation
+
+config APPVACCELTEST_BSCHOLES
+	bool "Blackscholes operation"
+	default n
+	help
+		An example of blackscholes operation
