@@ -8,9 +8,25 @@ The vaccel\_config file contains a config for KVM platform which enables the fol
 - vfscore with 9pfs as root filesystem
 - devfs which gets mounted during boot , for /dev/accel
 
-### Building
+### Building using Docker
 
-Let's assume, that we follow the typical paradigm in a Unikraft workspace, where the directory tree looks like the following one
+The easiest way to build a Vaccel example over Unikraft is to use docker:
+```
+DOCKER_BUILDKIT=1 docker build --network=host -f Dockerfile -t unikraft_vaccel_example --build-arg "EXAMPLE=noop" --target artifacts --output type=local,dest=./unikraft_images .
+```
+
+The above command will create a new directory named `unikraft_images`, which will contain the Unikraft image of `EXAMPLE` argument.
+
+The available examples can be found using the following command:
+```
+$ bash buil_example.sh list
+```
+
+### Building from scratch
+
+Let's assume, that a Unikraft workspace has been created, using [our Unikraft fork](https://github.com/cloudkernels/unikraft/tree/vaccelrt_rel010) and specifically `vaccel_rel010` branch.
+
+The directory tree should look like that:
 ```
 $ tree -L 2
 .
