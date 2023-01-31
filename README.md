@@ -34,7 +34,17 @@ $ tree -L 2
 
 10 directories, 8 files
 ```
-In order to build an application you can follow the below instructions:
+In order to build an application you can use the `build_example.sh script:
+```
+$ bash build_example.sh <example_name>
+```
+
+The user can get the list with the available examples, with the following command:
+```
+$ bash buil_example.sh list
+```
+
+Otherwise, the user can build an application following the below instructions:
 ```
 $ cp vaccel_config .config
 $ make olddefconfig
