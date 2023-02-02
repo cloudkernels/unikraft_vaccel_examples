@@ -75,6 +75,8 @@ After selecting the example, the user can simply build the unikernel, with the `
 
 ### Executing
 
+Let's assume that a successful installation of vAccel has taken place, following the steps in vAccel's [docs](https://docs.vaccel.org/binaries/#install-vaccelrt-core-library).
+
 Afer building a Unikraft example you can run it using the `qemu_run.sh` script.
 
 ```
