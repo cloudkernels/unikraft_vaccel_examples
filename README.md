@@ -1,4 +1,4 @@
-## Examples of vAccel in Unikrafy
+## Examples of vAccel in Unikraft
 
 A set of examples to test vAccel in Unikraft.
 
@@ -75,21 +75,25 @@ After selecting the example, the user can simply build the unikernel, with the `
 
 ### Executing
 
-Afer building a Unikraft example you can run it using the following command.
+Afer building a Unikraft example you can run it using the `qemu_run.sh` script.
 
 ```
-LD_LIBRARY_PATH=$PATH_TO_VACCELRT:$PATH_TO_EXTERNAL_LIBRARIES VACCEL_BACKENDS=$PATH_TO_VACCEL_PLUGIN qemu-system-x86_64 \
+bash QEMU_BINARY=<path_to_qemu_binary> qemu_run.sh <DATA> <UNIKERNEL_IMAGE> <APP_ARGS>
+```
+
+The `qemu_run.sh` script simply executes the following command:
+
+```
+$QEMU_BINARY \
 -cpu host -m 512 -enable-kvm -nographic -vga none \
--fsdev local,id=myid,path=$PATH_TO_DIRECTORY_CONTAINING_DATA,security_model=none -device virtio-9p-pci,fsdev=myid,mount_tag=data,disable-modern=on,disable-legacy=off \
+-fsdev local,id=myid,path=$DATA,security_model=none -device virtio-9p-pci,fsdev=myid,mount_tag=data,disable-modern=on,disable-legacy=off \
 -object acceldev-backend-vaccelrt,id=gen0 -device virtio-accel-pci,id=accl0,runtime=gen0,disable-legacy=off,disable-modern=on \
--kernel $PATH_TO_UNIKRAFT_IMAGE -append "vfs.rootdev=data -- $EXAMPLE_ARGS"
+-kernel $UNIKERNEL_IMAGE -append "vfs.rootdev=data -- $APP_ARGS"
 ```
 
 where:
-- PATH\_TO\_VACCELRT is the directory where vAccel has been installed
-- PATH\_TO\_EXTERNAL\_LIBRARIES is the directory where the external libraries have been installed (e.g. `/usr/local/lib:/usr/local/nvidia/lib`)
-- PATH\_TO\_VACCEL\_PLUGIN is the directory where the vAccel plugin has been installed.
-- PATH\_TO\_DIRECTORY\_CONTAINING\_DATA is the directory which contains the data for the example
-- PATH\_TO\_UNIKRAFT\_IMAGE, is the path to the unikernel image
-- $EXAMPLE\_ARGS, The arguments for the example application
+- QEMU\_BINARY is the full path of a QEMU binary, built with the vAccel bacckend
+- DATA is the directory which contains the data for the example
+- UNIKERNEL\_IMAGE, is the path to the unikernel image
+- $APP\_ARGS, are the arguments for the example application
 
