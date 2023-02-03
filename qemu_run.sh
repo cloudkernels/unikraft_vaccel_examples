@@ -10,6 +10,7 @@ usage()
 	echo -e "\t ARGS any arguments that are needed for the example"
 }
 
+MEM_SIZE=512
 QEMU_BINARY="${QEMU_BINARY:-qemu-system-x86_64}"
 DATA=$1
 UNIKERNEL_IMAGE=$2
@@ -26,11 +27,26 @@ fi
 if [ -z $VACCEL_BACKENDS ]
 then
 	case $UNIKERNEL_IMAGE in
-		*"classify"* | *"detect"* | *"degment"* | *"pose"* | *"depth"*)
+		*"classify"* | *"detect"* | *"segment"* | *"pose"* | *"depth"*)
 			VACCEL_BACKENDS=/usr/local/lib/libvaccel-jetson.so
 			if [ -z $APP_ARGS ]
 			then
 				APP_ARGS="dog_0.jpg 1"
+			fi
+			;;
+		*"sgemm"* )
+			MEM_SIZE=1024
+			VACCEL_BACKENDS=/usr/local/lib/libvaccel-blasgpu.so
+			if [ -z $APP_ARGS ]
+			then
+				APP_ARGS="out.txt"
+			fi
+			;;
+		*"minmax"*)
+			VACCEL_BACKENDS=/usr/local/lib/libvaccel-blasgpu.so
+			if [ -z $APP_ARGS ]
+			then
+				APP_ARGS="8192 input_262144.csv 100 5000"
 			fi
 			;;
 		*)
@@ -44,7 +60,7 @@ export VACCEL_BACKENDS=$VACCEL_BACKENDS
 export VACCEL_DEBUG_LEVEL=4
 
 $QEMU_BINARY \
-	-cpu host -m 512 -enable-kvm -nographic -vga none \
+	-cpu host -m $MEM_SIZE -enable-kvm -nographic -vga none \
 	-fsdev local,id=myid,path=${DATA},security_model=none \
 	-device virtio-9p-pci,fsdev=myid,mount_tag=data,disable-modern=on,disable-legacy=off \
 	-object acceldev-backend-vaccelrt,id=gen0 -device virtio-accel-pci,id=accl0,runtime=gen0,disable-legacy=off,disable-modern=on \

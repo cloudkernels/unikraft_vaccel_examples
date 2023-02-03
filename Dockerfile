@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y build-essential git \
 RUN mkdir -p unikraft/libs unikraft/apps && \
 	cd unikraft && \
 	git clone https://github.com/cloudkernels/unikraft.git -b vaccelrt_rel010 && \
+	cd libs && \
+	git clone https://github.com/unikraft/lib-newlib.git && cd .. && \
 	cd apps && \
 	git clone https://github.com/cloudkernels/unikraft_vaccel_examples
 
