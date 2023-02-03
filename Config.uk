@@ -15,12 +15,14 @@ config APPVACCELTEST_NOOP
 config APPVACCELTEST_SGEMM
 	bool "SGEMM operation"
 	default n
+	select LIBNEWLIBC
 	help
 		An example of Single precision GEneral Matrix Multiply
 
 config APPVACCELTEST_SGEMM_GOP
 	bool "SGEMM operation, using genop"
 	default n
+	select LIBNEWLIBC
 	help
 		An example of Single precision GEneral Matrix Multiply, over genop
 
@@ -99,12 +101,14 @@ config APPVACCELTEST_EXEC_GOP
 config APPVACCELTEST_MINMAX
 	bool "Minmax operation"
 	default n
+	select LIBNEWLIBC
 	help
 		An example of minmax operation
 
 config APPVACCELTEST_MINMAX_GOP
 	bool "Exec operation, using genop"
 	default n
+	select LIBNEWLIBC
 	help
 		An example of minmax operation, using vaccel genop
 
